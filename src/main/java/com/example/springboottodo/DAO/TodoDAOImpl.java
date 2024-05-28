@@ -39,6 +39,24 @@ public class TodoDAOImpl implements TodoDAO {
     }
 
     @Override
+    public long count() {
+        return (long) entityManager.createQuery("SELECT COUNT(t) FROM Todo t").getSingleResult();
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        long count = (long) entityManager.createQuery("SELECT COUNT(t) FROM User t WHERE t.id = :id")
+                .setParameter("id", id)
+                .getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public void deleteAll() {
+        entityManager.createQuery("DELETE FROM Todo").executeUpdate();
+    }
+
+    @Override
     public List<Todo> findByTitle(String title) {
         try {
             return entityManager.createQuery("SELECT t FROM Todo t WHERE t.title = :title order by id", Todo.class)

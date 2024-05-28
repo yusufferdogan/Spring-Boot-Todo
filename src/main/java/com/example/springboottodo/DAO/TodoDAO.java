@@ -10,6 +10,13 @@ public interface TodoDAO {
 
     public Todo findById(int id);
     List<Todo> findAll();
+
+    long count();
+
+    boolean existsById(int id);
+
+    void deleteAll();
+
     List<Todo> findByTitle(String title);
 
     void delete(Todo todo);
